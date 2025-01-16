@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:31:13 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/01/06 13:33:36 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:39:02 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
-# endif
+# endif 
 
 // PRINCIPALES 
 char	*get_next_line(int fd);
