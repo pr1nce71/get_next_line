@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:31:23 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/01/16 16:34:23 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:23:15 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,24 @@ char	*ft_strjoin(char *str, char *buffer)
 	len = ft_strlen(str);
 	ft_strcpy(&s[len], buffer);
 	return (free(str), s);
+}
+
+char	*ft_strdup(char *s)
+{
+	char	*copy;
+	size_t	i;
+	size_t	len;
+
+	len = ft_strlen(s);
+	copy = (char *)malloc(sizeof(char) * (len + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		copy[i] = s[i];
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
 }

@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:31:13 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/01/16 16:39:02 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:23:35 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ size_t	ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strcpy(char *dest, char *src);
 char	*ft_strchr(char *s, int c);
+char	*ft_strdup(char *s);
 
 #endif
