@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:32:41 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/03 17:59:58 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/05 12:11:25 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*get_next_line(int fd)
 // 	int fd;
 // 	char *line;
 
-// 	fd = open("1.txt", O_RDONLY);
+// 	fd = open("file1.txt", O_RDONLY);
 // 	if (fd == -1)
 // 	{
 // 		perror("Error opening file");
@@ -139,48 +139,47 @@ char	*get_next_line(int fd)
 // 	return 0;
 // }
 
-#include <fcntl.h>
-#include <stdio.h>
-#include "get_next_line.h"
+// #include <fcntl.h>
+// #include <stdio.h>
+// #include "get_next_line.h"
 
-int main(void)
-{
-    int fd1 = open("file1.txt", O_RDONLY);
-    int fd2 = open("file2.txt", O_RDONLY);
+// int main(void)
+// {
+//     int fd1 = open("file1.txt", O_RDONLY);
+//     int fd2 = open("file2.txt", O_RDONLY);
 
-    if (fd1 < 0 || fd2 < 0)
-    {
-        perror("Error opening files");
-        return (1);
-    }
+//     if (fd1 < 0 || fd2 < 0)
+//     {
+//         perror("Error opening files");
+//         return (1);
+//     }
 
-    char *line1 = NULL;
-    char *line2 = NULL;
+//     char *line1 = NULL;
+//     char *line2 = NULL;
 
-    printf("Reading from file1.txt and file2.txt simultaneously:\n\n");
+//     printf("Reading from file1.txt and file2.txt simultaneously:\n\n");
 
-    while (1)
-    {
-        line1 = get_next_line(fd1);
-        if (line1)
-        {
-            printf("File1: %s", line1);
-            free(line1);
-        }
+//     while (1)
+//     {
+//         line1 = get_next_line(fd1);
+//         if (line1)
+//         {
+//             printf("File1: %s", line1);
+//             free(line1);
+//         }
 
-        line2 = get_next_line(fd2);
-        if (line2)
-        {
-            printf("File2: %s", line2);
-            free(line2);
-        }
+//         line2 = get_next_line(fd2);
+//         if (line2)
+//         {
+//             printf("File2: %s", line2);
+//             free(line2);
+//         }
 
-        if (!line1 && !line2)
-            break;
-    }
+//         if (!line1 && !line2)
+//             break;
+//     }
 
-    close(fd1);
-    close(fd2);
-    return (0);
-}
-
+//     close(fd1);
+//     close(fd2);
+//     return (0);
+// }
