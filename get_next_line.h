@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:31:13 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/07 13:28:19 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:53:48 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@
 #  define BUFFER_SIZE 42
 # endif 
 
-// utils
-size_t	ft_strlen(char *s);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strcpy(char *dest, char *src);
-char	*ft_strchr(char *s, int c);
-char	*ft_strdup(char *s);
+// helpers
+size_t		my_strlen(const char *s);
+const char	*my_strchr(const char *s, int i);
+char		*my_strcpy(char *dest, const char *src);
+char		*my_strjoin(char *s1, const char *s2);
+char		*my_strdup_gnl(const char *s);
 
-// Mandatory 
-char	*ft_reader(int fd, char *str);
-char	*ft_printer(char *str);
-char	*ft_editor(char *str);
-char	*get_next_line(int fd);
+// handatory 
+char		*my_reader(int fd, char *str);
+char		*my_printer(char *str);
+char		*my_editor(char *str);
+char		*get_next_line(int fd);
 
 #endif

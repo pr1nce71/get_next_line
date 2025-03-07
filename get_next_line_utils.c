@@ -6,13 +6,13 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:31:23 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/07 13:05:09 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:53:06 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *s)
+size_t	my_strlen(const char *s)
 {
 	size_t	i;
 
@@ -22,22 +22,22 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
-char	*ft_strchr(char *s, int c)
+const char	*my_strchr(const char *s, int i)
 {
 	if (!s)
 		return (0);
-	if (c == '\0')
-		return (&s[ft_strlen(s)]);
+	if (i == '\0')
+		return (&s[my_strlen(s)]);
 	while (*s != '\0')
 	{
-		if (*s == (char)c)
+		if (*s == (char)i)
 			return (s);
 		s++;
 	}
 	return (0);
 }
 
-char	*ft_strcpy(char *dest, char *src)
+char	*my_strcpy(char *dest, const char *src)
 {
 	int	i;
 
@@ -51,44 +51,48 @@ char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-char	*ft_strjoin(char *str, char *buffer)
+char	*my_strjoin(char *s1, const char *s2)
 {
-	unsigned int	len;
-	char			*s;
+	unsigned int	len1;
+	unsigned int	len2;
+	char			result;
 
-	if (!str)
+	if(!s1)
 	{
-		str = (char *)malloc(1 * sizeof(char));
-		str[0] = '\0';
+		s1 = (char *)malloc(sizeof(char));
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
 	}
-	if (!str || !buffer)
-		return (NULL);
-	len = ft_strlen(str) + ft_strlen(buffer);
-	s = (char *)malloc(sizeof(char) * len + 1);
-	if (!s)
-		return (0);
-	ft_strcpy(s, str);
-	len = ft_strlen(str);
-	ft_strcpy(&s[len], buffer);
-	return (free(str), s);
+	if(!s2)
+		return(NULL);
+	len1 = my_strlen(s1);
+	len2 = my_strlen(s2);
+	result = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	if(!result)
+		return (free(s1), NULL);
+	my_strcpy(result, s1);
+	my_strcpy(result + len1, s2);
+	free(s1);
+	return (result);
 }
 
-char	*ft_strdup(char *s)
+char	*my_strdup_gnl(const char *s)
 {
-	char	*copy;
-	size_t	i;
+	char	*new_str;
 	size_t	len;
+	size_t	i;
 
-	len = ft_strlen(s);
-	copy = (char *)malloc(sizeof(char) * (len + 1));
-	if (!copy)
+	len = my_strlen(s);
+	new_str = malloc(len + 1);
+	if (!new_str)
 		return (NULL);
 	i = 0;
 	while (i < len)
 	{
-		copy[i] = s[i];
+		new_str[i] = s[i];
 		i++;
 	}
-	copy[i] = '\0';
-	return (copy);
+	new_str[len] = '\0';
+	return (new_str);
 }

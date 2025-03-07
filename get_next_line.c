@@ -6,90 +6,90 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:32:41 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/07 13:34:00 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:40:44 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_reader(int fd, char *str)
+char	*my_reader(int fd, char *str)
 {
 	int		len;
-	char	*buff;
+	char	*line;
 
 	if (!str)
-		str = ft_strdup("");
+		str = my_strdup_gnl("");
 	if (!str)
 		return (NULL);
-	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buff)
+	line = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!line)
 		return (free(str), NULL);
 	len = 1;
-	while (!ft_strchr(str, '\n') && len != 0)
+	while (!my_strchr(str, '\n') && len != 0)
 	{
-		len = read(fd, buff, BUFFER_SIZE);
+		len = read(fd, line, BUFFER_SIZE);
 		if (len == -1)
-			return (free(buff), free(str), NULL);
-		buff[len] = '\0';
-		str = ft_strjoin(str, buff);
+			return (free(line), free(str), NULL);
+		line[len] = '\0';
+		str = my_strjoin(str, line);
 		if (!str)
-			return (free(buff), NULL);
+			return (free(line), NULL);
 	}
-	free(buff);
+	free(line);
 	return (str);
 }
 // camera
 // reads from file descriptor and adds data to str
 
-char	*ft_printer(char *str)
+char	*my_printer(char *str)
 {
 	int		len;
-	char	*buff;
+	char	*line;
 
-	len = 0;
-	if (!str || !str[0])
+	if (!str || !*str)
 		return (NULL);
-	while (str[len] != '\0' && str[len] != '\n')
+	len = 0;
+	while (str[len] && str[len] != '\n')
 		len++;
-	buff = malloc(sizeof(char) * (len + 2));
-	if (!buff)
+	line = malloc(len + 2);
+	if (!line)
 		return (NULL);
 	len = 0;
 	while (str[len] && str[len] != '\n')
 	{
-		buff[len] = str[len];
+		line[len] = str[len];
 		len++;
 	}
 	if (str[len] == '\n')
 	{
-		buff[len] = '\n';
+		line[len] = '\n';
 		len++;
 	}
-	buff[len] = '\0';
-	return (buff);
+	line[len] = '\0';
+	return (line);
 }
 // commentator
 // cuts from str first line to \n and makes copy
 
-char	*ft_editor(char *str)
+char	*my_editor(char *str)
 {
-	int		len;
-	char	*buff;
+	size_t	len;
+	char	*new_str;
 
 	if (!str)
 		return (NULL);
 	len = 0;
-	while (str[len] != '\0' && str[len] != '\n')
+	while (str[len] && str[len] != '\n')
 		len++;
 	if (!str[len])
 		return (free(str), NULL);
-	buff = malloc(sizeof(char) * (ft_strlen(str) - len + 1));
-	if (!buff)
+	new_str = malloc(my_strlen(str) - len);
+	if (!new_str)
 		return (free(str), NULL);
 	len++;
-	ft_strcpy(buff, &str[len]);
+	my_strcpy(new_str, &str[len]);
 	free(str);
-	return (buff);
+	return (new_str);
 }
 // it cuts str removing the first line be4 \n
 // returns cutted str
@@ -102,83 +102,55 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	str = ft_reader(fd, str);
+	str = my_reader(fd, str);
 	if (!str)
 		return (NULL);
-	s = ft_printer(str);
-	str = ft_editor(str);
+	s = my_printer(str);
+	str = my_editor(str);
 	return (s);
 }
 // updates static str with ft_reads
 // returns ready line
 
-// #include <unistd.h>
-// #include <stdlib.h>
-// #include <string.h>
+// #include "get_next_line.h"
 // #include <fcntl.h>
 // #include <stdio.h>
 
-// int main()
+// int	main(void)
 // {
-// 	int fd;
-// 	char *line;
-
-// 	fd = open("file1.txt", O_RDONLY);
+// 	int     fd;
+// 	char    *line;
+// 	char    input;
+	
+// 	fd = open("test.txt", O_RDONLY);
 // 	if (fd == -1)
 // 	{
-// 		perror("Error opening file");
-// 		return 1;
+// 		printf("Error opening file\n");
+// 		return (1);
 // 	}
-// 	while ((line = get_next_line(fd)) != NULL)
+	
+// 	printf("Press Enter to read next line (q + Enter to quit):\n");
+// 	while (1)
 // 	{
-// 		printf("%s", line);
-// 		free(line);
+// 		input = getchar();
+// 		if (input == 'q')
+// 			break;
+// 		if (input == '\n')
+// 		{
+// 			line = get_next_line(fd);
+// 			if (line)
+// 			{
+// 				printf("Line: %s", line);
+// 				free(line);
+// 			}
+// 			else
+// 			{
+// 				printf("End of file reached\n");
+// 				break;
+// 			}
+// 		}
 // 	}
+	
 // 	close(fd);
-// 	return 0;
-// }
-
-// #include <fcntl.h>
-// #include <stdio.h>
-// #include "get_next_line.h"
-
-// int main(void)
-// {
-//     int fd1 = open("file1.txt", O_RDONLY);
-//     int fd2 = open("file2.txt", O_RDONLY);
-
-//     if (fd1 < 0 || fd2 < 0)
-//     {
-//         perror("Error opening files");
-//         return (1);
-//     }
-
-//     char *line1 = NULL;
-//     char *line2 = NULL;
-
-//     printf("Reading from file1.txt and file2.txt simultaneously:\n\n");
-
-//     while (1)
-//     {
-//         line1 = get_next_line(fd1);
-//         if (line1)
-//         {
-//             printf("File1: %s", line1);
-//             free(line1);
-//         }
-
-//         line2 = get_next_line(fd2);
-//         if (line2)
-//         {
-//             printf("File2: %s", line2);
-//             free(line2);
-//         }
-
-//         if (!line1 && !line2)
-//             break;
-//     }
-
-//     close(fd1);
-//     close(fd2);
-//     return (0);
+// 	return (0);
 // }
