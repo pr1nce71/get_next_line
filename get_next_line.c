@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:32:41 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/07 13:31:19 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/07 13:34:00 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char	*ft_editor(char *str)
 	free(str);
 	return (buff);
 }
-// editor
 // it cuts str removing the first line be4 \n
 // returns cutted str
 // if after 1st string there is no data, it's free & returns NULL
