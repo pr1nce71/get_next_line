@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:32:41 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/07 15:40:44 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:03:18 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,13 @@ char	*get_next_line(int fd)
 // 	int     fd;
 // 	char    *line;
 // 	char    input;
-	
+
 // 	fd = open("test.txt", O_RDONLY);
 // 	if (fd == -1)
 // 	{
 // 		printf("Error opening file\n");
 // 		return (1);
 // 	}
-	
 // 	printf("Press Enter to read next line (q + Enter to quit):\n");
 // 	while (1)
 // 	{
@@ -150,7 +149,6 @@ char	*get_next_line(int fd)
 // 			}
 // 		}
 // 	}
-	
 // 	close(fd);
 // 	return (0);
 // }
