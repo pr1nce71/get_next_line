@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:31:23 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/05 12:11:31 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/07 13:05:09 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 size_t	ft_strlen(char *s)
 {
-	size_t	c;
+	size_t	i;
 
-	c = 0;
-	while (s[c])
-		c++;
-	return (c);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
 char	*ft_strchr(char *s, int c)

@@ -6,13 +6,13 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:32:41 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/05 12:11:25 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/07 13:31:19 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_reads(int fd, char *str)
+char	*ft_reader(int fd, char *str)
 {
 	int		len;
 	char	*buff;
@@ -41,7 +41,7 @@ char	*ft_reads(int fd, char *str)
 // camera
 // reads from file descriptor and adds data to str
 
-char	*ft_print(char *str)
+char	*ft_printer(char *str)
 {
 	int		len;
 	char	*buff;
@@ -71,7 +71,7 @@ char	*ft_print(char *str)
 // commentator
 // cuts from str first line to \n and makes copy
 
-char	*ft_next_line(char *str)
+char	*ft_editor(char *str)
 {
 	int		len;
 	char	*buff;
@@ -103,11 +103,11 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	str = ft_reads(fd, str);
+	str = ft_reader(fd, str);
 	if (!str)
 		return (NULL);
-	s = ft_print(str);
-	str = ft_next_line(str);
+	s = ft_printer(str);
+	str = ft_editor(str);
 	return (s);
 }
 // updates static str with ft_reads
