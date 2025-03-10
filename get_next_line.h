@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:31:13 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/07 15:53:48 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:24:11 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char		*my_strcpy(char *dest, const char *src);
 char		*my_strjoin(char *s1, const char *s2);
 char		*my_strdup_gnl(const char *s);
 
-// handatory 
+// mandatory 
 char		*my_reader(int fd, char *str);
 char		*my_printer(char *str);
 char		*my_editor(char *str);

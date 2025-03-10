@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:31:23 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/07 16:03:50 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/10 13:08:43 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,24 @@ size_t	my_strlen(const char *s)
 	return (i);
 }
 
-const char	*my_strchr(const char *s, int i)
+char	*my_strdup_gnl(const char *s)
 {
-	if (!s)
-		return (0);
-	if (i == '\0')
-		return (&s[my_strlen(s)]);
-	while (*s != '\0')
+	char	*new_str;
+	size_t	len;
+	size_t	i;
+
+	len = my_strlen(s);
+	new_str = malloc(len + 1);
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (i < len)
 	{
-		if (*s == (char)i)
-			return (s);
-		s++;
+		new_str[i] = s[i];
+		i++;
 	}
-	return (0);
+	new_str[len] = '\0';
+	return (new_str);
 }
 
 char	*my_strcpy(char *dest, const char *src)
@@ -77,22 +82,17 @@ char	*my_strjoin(char *s1, const char *s2)
 	return (result);
 }
 
-char	*my_strdup_gnl(const char *s)
+const char	*my_strchr(const char *s, int i)
 {
-	char	*new_str;
-	size_t	len;
-	size_t	i;
-
-	len = my_strlen(s);
-	new_str = malloc(len + 1);
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	while (i < len)
+	if (!s)
+		return (0);
+	if (i == '\0')
+		return (&s[my_strlen(s)]);
+	while (*s != '\0')
 	{
-		new_str[i] = s[i];
-		i++;
+		if (*s == (char)i)
+			return (s);
+		s++;
 	}
-	new_str[len] = '\0';
-	return (new_str);
+	return (0);
 }

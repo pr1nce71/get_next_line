@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:32:41 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/07 16:03:18 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:23:11 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,25 @@ char	*my_reader(int fd, char *str)
 // camera
 // reads from file descriptor and adds data to str
 
+static void	copy_line(char *line, char *str, int *len)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+	{
+		line[i] = str[i];
+		i++;
+	}
+	if (str[i] == '\n')
+	{
+		line[i] = '\n';
+		i++;
+	}
+	line[i] = '\0';
+	*len = i;
+}
+
 char	*my_printer(char *str)
 {
 	int		len;
@@ -51,21 +70,12 @@ char	*my_printer(char *str)
 	len = 0;
 	while (str[len] && str[len] != '\n')
 		len++;
-	line = malloc(len + 2);
+	if (str[len] == '\n')
+		len++;
+	line = malloc(len + 1);
 	if (!line)
 		return (NULL);
-	len = 0;
-	while (str[len] && str[len] != '\n')
-	{
-		line[len] = str[len];
-		len++;
-	}
-	if (str[len] == '\n')
-	{
-		line[len] = '\n';
-		len++;
-	}
-	line[len] = '\0';
+	copy_line(line, str, &len);
 	return (line);
 }
 // commentator
@@ -81,13 +91,13 @@ char	*my_editor(char *str)
 	len = 0;
 	while (str[len] && str[len] != '\n')
 		len++;
-	if (!str[len])
-		return (free(str), NULL);
-	new_str = malloc(my_strlen(str) - len);
-	if (!new_str)
+	if (!str[len] || !str[len + 1])
 		return (free(str), NULL);
 	len++;
-	my_strcpy(new_str, &str[len]);
+	new_str = malloc(my_strlen(str + len) + 1);
+	if (!new_str)
+		return (free(str), NULL);
+	my_strcpy(new_str, str + len);
 	free(str);
 	return (new_str);
 }
@@ -106,49 +116,59 @@ char	*get_next_line(int fd)
 	if (!str)
 		return (NULL);
 	s = my_printer(str);
+	if (!s)
+	{
+		free(str);
+		str = NULL;
+		return (NULL);
+	}
 	str = my_editor(str);
 	return (s);
 }
-// updates static str with ft_reads
+// first gets the line to return, then check if we got the line
+// updates static str with editor and printer
 // returns ready line
 
-// #include "get_next_line.h"
-// #include <fcntl.h>
-// #include <stdio.h>
+#include "get_next_line.h"
+#include <fcntl.h>
+#include <stdio.h>
 
-// int	main(void)
-// {
-// 	int     fd;
-// 	char    *line;
-// 	char    input;
-
-// 	fd = open("test.txt", O_RDONLY);
-// 	if (fd == -1)
-// 	{
-// 		printf("Error opening file\n");
-// 		return (1);
-// 	}
-// 	printf("Press Enter to read next line (q + Enter to quit):\n");
-// 	while (1)
-// 	{
-// 		input = getchar();
-// 		if (input == 'q')
-// 			break;
-// 		if (input == '\n')
-// 		{
-// 			line = get_next_line(fd);
-// 			if (line)
-// 			{
-// 				printf("Line: %s", line);
-// 				free(line);
-// 			}
-// 			else
-// 			{
-// 				printf("End of file reached\n");
-// 				break;
-// 			}
-// 		}
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
+int	main(void)
+{
+	int		fd;
+	char	*line;
+	char	input;
+	// Test invalid fd (-1)
+	printf("Testing invalid fd (-1):\n");
+	line = get_next_line(-1);
+	if (!line)
+		printf("Correct: NULL returned for fd = -1\n\n");
+	// Normal file reading
+	fd = open("test.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Error opening file\n");
+		return (1);
+	}
+	printf("Press Enter to read next line (q + Enter to quit):\n");
+	while (1)
+	{
+		input = getchar();
+		if (input == 'q')
+			break;
+		if (input == '\n')
+		{
+			line = get_next_line(fd);
+			if (line)
+			{
+				printf("Line: %s", line);
+				free(line);
+			}
+			else
+			{
+				printf("End of file reached\n");
+				break;
+			}
+		}
+	}
+}
