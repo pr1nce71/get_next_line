@@ -28,9 +28,9 @@ char		*my_strjoin(char *s1, const char *s2);
 char		*my_strdup_gnl(const char *s);
 
 // mandatory 
-char		*my_reader(int fd, char *str);
-char		*my_printer(char *str);
-char		*my_editor(char *str);
+char		*read_line(int fd, char *str);
+char		*print_line(char *str);
+char		*edit_line(char *str);
 char		*get_next_line(int fd);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-char	*my_reader(int fd, char *str)
+char	*read_line(int fd, char *str)
 {
 	int		len;
 	char	*line;
@@ -60,7 +60,7 @@ static void	copy_line(char *line, char *str, int *len)
 	*len = i;
 }
 
-char	*my_printer(char *str)
+char	*print_line(char *str)
 {
 	int		len;
 	char	*line;
@@ -81,7 +81,7 @@ char	*my_printer(char *str)
 // commentator
 // cuts from str first line to \n and makes copy
 
-char	*my_editor(char *str)
+char	*edit_line(char *str)
 {
 	size_t	len;
 	char	*new_str;
@@ -112,63 +112,63 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	str = my_reader(fd, str);
+	str = read_line(fd, str);
 	if (!str)
 		return (NULL);
-	s = my_printer(str);
+	s = print_line(str);
 	if (!s)
 	{
 		free(str);
 		str = NULL;
 		return (NULL);
 	}
-	str = my_editor(str);
+	str = edit_line(str);
 	return (s);
 }
 // first gets the line to return, then check if we got the line
 // updates static str with editor and printer
 // returns ready line
 
-#include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
+// #include "get_next_line.h"
+// #include <fcntl.h>
+// #include <stdio.h>
 
-int	main(void)
-{
-	int		fd;
-	char	*line;
-	char	input;
-	// Test invalid fd (-1)
-	printf("Testing invalid fd (-1):\n");
-	line = get_next_line(-1);
-	if (!line)
-		printf("Correct: NULL returned for fd = -1\n\n");
-	// Normal file reading
-	fd = open("test.txt", O_RDONLY);
-	if (fd == -1)
-	{
-		printf("Error opening file\n");
-		return (1);
-	}
-	printf("Press Enter to read next line (q + Enter to quit):\n");
-	while (1)
-	{
-		input = getchar();
-		if (input == 'q')
-			break;
-		if (input == '\n')
-		{
-			line = get_next_line(fd);
-			if (line)
-			{
-				printf("Line: %s", line);
-				free(line);
-			}
-			else
-			{
-				printf("End of file reached\n");
-				break;
-			}
-		}
-	}
-}
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	char	input;
+// 	// Test invalid fd (-1)
+// 	printf("Testing invalid fd (-1):\n");
+// 	line = get_next_line(-1);
+// 	if (!line)
+// 		printf("Correct: NULL returned for fd = -1\n\n");
+// 	// Normal file reading
+// 	fd = open("test.txt", O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		printf("Error opening file\n");
+// 		return (1);
+// 	}
+// 	printf("Press Enter to read next line (q + Enter to quit):\n");
+// 	while (1)
+// 	{
+// 		input = getchar();
+// 		if (input == 'q')
+// 			break;
+// 		if (input == '\n')
+// 		{
+// 			line = get_next_line(fd);
+// 			if (line)
+// 			{
+// 				printf("Line: %s", line);
+// 				free(line);
+// 			}
+// 			else
+// 			{
+// 				printf("End of file reached\n");
+// 				break;
+// 			}
+// 		}
+// 	}
+// }
