@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:31:23 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/10 13:08:43 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:28:55 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,18 @@ char	*my_strdup_gnl(const char *s)
 	return (new_str);
 }
 
-char	*my_strcpy(char *dest, const char *src)
+char	*my_strcpy(char *s1, const char *s2)
 {
 	int	i;
 
 	i = 0;
-	while (src[i])
+	while (s2[i])
 	{
-		dest[i] = src[i];
+		s1[i] = s2[i];
 		i++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	s1[i] = '\0';
+	return (s1);
 }
 
 char	*my_strjoin(char *s1, const char *s2)

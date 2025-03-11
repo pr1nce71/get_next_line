@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:31:13 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/10 14:24:11 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:23:17 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 4096
 # endif 
 
 // helpers

@@ -6,7 +6,7 @@
 /*   By: yevkahar <yevkahar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:32:41 by yevkahar          #+#    #+#             */
-/*   Updated: 2025/03/10 16:23:11 by yevkahar         ###   ########.fr       */
+/*   Updated: 2025/03/11 20:38:36 by yevkahar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,15 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	str = read_line(fd, str);
-	if (!str)
+	if (!str || !*str)
+	{
+		if (str)
+		{
+			free(str);
+			str = NULL;
+		}
 		return (NULL);
+	}
 	s = print_line(str);
 	if (!s)
 	{
